@@ -7,6 +7,8 @@ var currentIcon = $("#currentIcon");
 var search = $("#search");
 var requestURL;
 
+// currentIcon.text("TEST");
+
 // Function to convert city name to lat/lon coordinates.//
 var coordinatesConvert = function (event) {
     event.preventDefault();
@@ -23,7 +25,7 @@ var coordinatesConvert = function (event) {
         })
 };
 
-// Function to search lat/lon coordinates.//
+// Function to search lat/lon coordinates and output API results.//
 var coordinatesSearch = function () {
     fetch(requestURL)
         .then(function (response) {
@@ -31,11 +33,12 @@ var coordinatesSearch = function () {
         })
         .then(function (data) {
             console.log(data);
-            currentDate.text("Date & Time: " + dayjs.unix(data.dt).format("MMMM D, YYYY"));
+            currentDate.text("Date: " + dayjs.unix(data.dt).format("MMMM D, YYYY"));
             currentTemp.text("Temp: " + data.main.temp);
             currentHumid.text("Humidity: " + data.main.humidity);
             currentWind.text("Wind Speed: " + data.wind.speed);
-        })
+            currentIcon.attr("src", "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+        })     
 };
 
 // Form submit search event listener//
