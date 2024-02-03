@@ -47,18 +47,15 @@ var coordinatesSearchFiveDay = function () {
             return response.json();
         })
         .then(function (data) {
+            // Calculations to output a value of noon on the page (more details in ReadMe)//
+            var time1 = dayjs(data.list[0].dt_txt);
+            var time2 = ((time1.add(12,"hour")).startOf('day').add(12,"hour"));
+            var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
+            // DELETE//////////////////////////////////////////////////////////////////////////////////
+            console.log(timeCode);
+            console.log(data);
             // For loop to grab data for each day at noon.//
             var dayStart = 0;
-            // Calculations to output a value of noon on the page (more details in ReadMe)//
-            var time1 = dayjs().startOf('day');
-            var time2 = dayjs();
-            var timeDiffCode = Math.floor(time2.diff(time1, "hours") / 3);
-            var timeCode;
-            if (timeDiffCode !== 8) {
-                timeCode = 8 - timeDiffCode
-            } else {
-                timeCode = 0
-            };
             for (var i = timeCode; i < data.list.length; i += 8) {
                 var day = "#day-" + dayStart;
                 $(day).children().eq(0).text("Date: " + data.list[i].dt_txt);
@@ -73,6 +70,3 @@ var coordinatesSearchFiveDay = function () {
 
 // Form submit search event listener//
 search.on("submit", coordinatesConvert);
-
-
-
