@@ -1,3 +1,4 @@
+// JS Variables// 
 var currentCity = $("#currentCity");
 var currentDate = $("#currentDate");
 var currentTemp = $("#currentTemp");
@@ -12,7 +13,9 @@ var requestURLFiveDay;
 var coordinatesConvert = function (event) {
     event.preventDefault();
     citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + $("#searchResult").val() + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
-    fetch(citySearch)
+    fetch(citySearch, {
+        cache: "no-cache",
+    })
         .then(function (response) {
             return response.json()
         })
@@ -42,14 +45,16 @@ var coordinatesSearchCurrent = function () {
 
 // Function with fetch request to get 5 day API results.//
 var coordinatesSearchFiveDay = function () {
-    fetch(requestURLFiveDay)
+    fetch(requestURLFiveDay, {
+        cache: "no-cache",
+    })
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             // Calculations to output a value of noon on the page (more details in ReadMe)//
             var time1 = dayjs(data.list[0].dt_txt);
-            var time2 = ((time1.add(12,"hour")).startOf('day').add(12,"hour"));
+            var time2 = ((time1.add(12, "hour")).startOf('day').add(12, "hour"));
             var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
             // DELETE//////////////////////////////////////////////////////////////////////////////////
             console.log(timeCode);
