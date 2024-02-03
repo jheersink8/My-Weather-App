@@ -5,9 +5,8 @@ var currentHumid = $("#currentHumid");
 var currentWind = $("#currentWind");
 var currentIcon = $("#currentIcon");
 var search = $("#search");
-var requestURL;
-
-// currentIcon.text("TEST");
+var requestURLCurrent;
+var requestURLFiveDay;
 
 // Function to convert city name to lat/lon coordinates.//
 var coordinatesConvert = function (event) {
@@ -19,51 +18,55 @@ var coordinatesConvert = function (event) {
         })
         .then(function (data) {
             currentCity.text("City: " + data[0].name + ", " + data[0].state)
-            console.log(data)
-            requestURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
-            coordinatesSearch(requestURL);
+            requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
+            coordinatesSearchCurrent(requestURLCurrent);
+            requestURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
+            coordinatesSearchFiveDay(requestURLFiveDay);
         })
 };
 
-// Function to search lat/lon coordinates and output API results.//
-var coordinatesSearch = function () {
-    fetch(requestURL)
+// Function with fetch request to search lat/lon coordinates and output API results.//
+var coordinatesSearchCurrent = function () {
+    fetch(requestURLCurrent)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             currentDate.text("Date: " + dayjs.unix(data.dt).format("MMMM D, YYYY"));
-            currentTemp.text("Temp: " + data.main.temp);
-            currentHumid.text("Humidity: " + data.main.humidity);
-            currentWind.text("Wind Speed: " + data.wind.speed);
-            currentIcon.attr("src", "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
-        })     
+            currentTemp.text("Temp: " + data.main.temp + "°");
+            currentHumid.text("Humidity: " + data.main.humidity + "%");
+            currentWind.text("Wind Speed: " + data.wind.speed + " mph");
+            currentIcon.attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+        })
+};
+
+// Function with fetch request to get 5 day API results.//
+var coordinatesSearchFiveDay = function () {
+    fetch(requestURLFiveDay)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // Calculations to output a value of noon on the page (more details in ReadMe)//
+            var time1 = dayjs(data.list[0].dt_txt);
+            var time2 = ((time1.add(12,"hour")).startOf('day').add(12,"hour"));
+            var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
+            // DELETE//////////////////////////////////////////////////////////////////////////////////
+            console.log(timeCode);
+            console.log(data);
+            // For loop to grab data for each day at noon.//
+            var dayStart = 0;
+            for (var i = timeCode; i < data.list.length; i += 8) {
+                var day = "#day-" + dayStart;
+                $(day).children().eq(0).text("Date: " + data.list[i].dt_txt);
+                $(day).children().eq(1).text("Temp: " + data.list[i].main.temp);
+                $(day).children().eq(2).attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png")
+                $(day).children().eq(3).children().eq(0).text("Humidity: " + data.list[i].main.humidity);
+                $(day).children().eq(3).children().eq(1).text("Wind Speed: " + data.list[i].wind.speed);
+                dayStart++
+            }
+        })
 };
 
 // Form submit search event listener//
 search.on("submit", coordinatesConvert);
-
-
-
-
-
-
-
-
-
-
-// for (var i = 0; i < data.list.length; i++) 
-// });
-
-
-
-
-
-// 5-day api//
-// "https://api.openweathermap.org/data/2.5/forecast?lat=39.74&lon=-104.99&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"//
-// currentCity.text("City: "+data.city.name+", "+ data.city.country)
-// currentDate.text("Date & Time: "+data.list[0].dt_txt)
-// currentWind.text("Wind Speed: "+data.list[0].wind.speed)
-// currentHumid.text("Humidity: "+data.list[0].main.humidity)
-// currentTemp.text("Temp: "+data.list[0].main.temp)
