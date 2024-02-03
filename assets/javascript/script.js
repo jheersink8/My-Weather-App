@@ -51,17 +51,13 @@ var coordinatesSearchFiveDay = function () {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             // For loop to grab data for each day at noon.//
+            console.log(data);
             for (var i = 0; i < data.list.length; i++) {
-
                 var day = "#day-" + i;
-
-                console.log($(day).children().eq(2).text().attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].id + "@2x.png"));
-
                 $(day).children().eq(0).text("Date: " + data.list[i].dt_txt);
                 $(day).children().eq(1).text("Temp: " + data.list[i].main.temp);
-                // $(day).children().eq(2).text().attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].id + "@2x.png")
+                $(day).children().eq(2).attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png")
                 $(day).children().eq(3).children().eq(0).text("Humidity: " + data.list[i].main.humidity);
                 $(day).children().eq(3).children().eq(1).text("Wind Speed: " + data.list[i].wind.speed);
             }
