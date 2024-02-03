@@ -34,7 +34,7 @@
                             My favorite cities
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Placeholder for favorites</a></li>
+                            <li><a id="TEST" class="dropdown-item" href="#">denver</a></li>
                         </ul>
                     </li>
 
@@ -44,6 +44,7 @@
                             Settings
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Add City to Favorites</a></li>
                             <li><a class="dropdown-item" href="#">Clear Favorites</a></li>
                             <li><a class="dropdown-item" href="#">Imperial/Metric</a></li>
                             <li><a class="dropdown-item" href="#">About</a></li>
@@ -64,8 +65,8 @@
     <div class="container text-center border border-solid border-1 mt-3">
         <div class="row">
             <div class="col-12">
-                <h2 id="currentCity">City</h2>
-                <h2 id="currentDate">Date</h2>
+                <h2 id="currentCity"></h2>
+                <h2 id="currentDate"></h2>
             </div>
         </div>
     </div>
@@ -75,9 +76,9 @@
         <div class="row border border-solid border-1">
 
             <div class="col-lg-8 border border-solid border-1">
-                <p id="currentTemp" class="border border-solid border-1">60 Degrees</p>
-                <p id="currentHumid" class="border border-solid border-1">20% Humid</p>
-                <p id="currentWind" class="border border-solid border-1">30mph Winds</p>
+                <p id="currentTemp" class="border border-solid border-1"></p>
+                <p id="currentHumid" class="border border-solid border-1"></p>
+                <p id="currentWind" class="border border-solid border-1"></p>
             </div>
 
 
@@ -91,7 +92,7 @@
 
 
 
-    <h3 class="text-center">Five Day Forcast</h3>
+    <h3 class="text-center">Five Day Forcast at Noon</h3>
     <div class="container-fluid">
         <div class="row text-center border border-solid border-3">
             <div id="day-0" class="col-lg-2 text-center border border-solid border-1 offset-1">
@@ -168,7 +169,11 @@
             </div>
         </div>
     </div>
-    <!-- DayJS -->
+    
+
+
+
+
     <!-- DayJS web API 1.12 -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11/dayjs.min.js"
         integrity="sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=" crossorigin="anonymous"></script>
