@@ -32,6 +32,7 @@ function coordinatesConvert() {
         })
         .then(function (data) {
             pageMessage.text("");
+            $(".hide").removeClass("d-none");
             cityValue = data[0].name + ", " + data[0].state;
             currentCity.text("City: " + cityValue);
             requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=" + api
