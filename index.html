@@ -24,6 +24,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-2">
+                    
+                    <!-- DELETE -->
                     <li class="nav-item px-2">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
@@ -33,8 +35,8 @@
                             aria-expanded="false">
                             My favorite cities
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Placeholder for favorites</a></li>
+                        <ul id="elFavorites" class="dropdown-menu">
+
                         </ul>
                     </li>
 
@@ -44,7 +46,8 @@
                             Settings
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Clear Favorites</a></li>
+                            <li><a id="addFavorite" class="dropdown-item" href="#">Add City to Favorites</a></li>
+                            <li><a id="clear" class="dropdown-item" href="#">Clear Favorites</a></li>
                             <li><a class="dropdown-item" href="#">Imperial/Metric</a></li>
                             <li><a class="dropdown-item" href="#">About</a></li>
                         </ul>
@@ -64,8 +67,8 @@
     <div class="container text-center border border-solid border-1 mt-3">
         <div class="row">
             <div class="col-12">
-                <h2 id="currentCity">City</h2>
-                <h2 id="currentDate">Date</h2>
+                <h2 id="currentCity"></h2>
+                <h2 id="currentDate"></h2>
             </div>
         </div>
     </div>
@@ -75,9 +78,9 @@
         <div class="row border border-solid border-1">
 
             <div class="col-lg-8 border border-solid border-1">
-                <p id="currentTemp" class="border border-solid border-1">60 Degrees</p>
-                <p id="currentHumid" class="border border-solid border-1">20% Humid</p>
-                <p id="currentWind" class="border border-solid border-1">30mph Winds</p>
+                <p id="currentTemp" class="border border-solid border-1"></p>
+                <p id="currentHumid" class="border border-solid border-1"></p>
+                <p id="currentWind" class="border border-solid border-1"></p>
             </div>
 
 
@@ -91,7 +94,7 @@
 
 
 
-    <h3 class="text-center">Five Day Forcast</h3>
+    <h3 class="text-center">Five Day Forcast at Noon</h3>
     <div class="container-fluid">
         <div class="row text-center border border-solid border-3">
             <div id="day-0" class="col-lg-2 text-center border border-solid border-1 offset-1">
@@ -103,7 +106,7 @@
                         <p id="hum1"></p>
                     </div>
                     <div class="col-lg-6 text-center border border-solid border-1">
-                        <p id ="wind1"></p>
+                        <p id="wind1"></p>
                     </div>
                 </div>
             </div>
@@ -117,7 +120,7 @@
                         <p id="hum2"></p>
                     </div>
                     <div class="col-lg-6 text-center border border-solid border-1">
-                        <p id ="wind2"></p>
+                        <p id="wind2"></p>
                     </div>
                 </div>
             </div>
@@ -132,7 +135,7 @@
                         <p id="hum3"></p>
                     </div>
                     <div class="col-lg-6 text-center border border-solid border-1">
-                        <p id ="wind3"></p>
+                        <p id="wind3"></p>
                     </div>
                 </div>
             </div>
@@ -147,7 +150,7 @@
                         <p id="hum4"></p>
                     </div>
                     <div class="col-lg-6 text-center border border-solid border-1">
-                        <p id ="wind4"></p>
+                        <p id="wind4"></p>
                     </div>
                 </div>
             </div>
@@ -162,13 +165,17 @@
                         <p id="hum5"></p>
                     </div>
                     <div class="col-lg-6 text-center border border-solid border-1">
-                        <p id ="wind5"></p>
+                        <p id="wind5"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- DayJS -->
+
+
+
+
+
     <!-- DayJS web API 1.12 -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11/dayjs.min.js"
         integrity="sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=" crossorigin="anonymous"></script>
@@ -176,8 +183,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- Bootstrap JS components 5.3.2 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    3 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 3
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
     <script src="assets/javascript/script.js"></script>
