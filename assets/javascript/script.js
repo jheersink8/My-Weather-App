@@ -132,7 +132,7 @@ $("#clear").on("click", function () {
 // Search form event listener //
 search.on("submit", function (event) {
     event.preventDefault();
-    citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=" + api
+    citySearch = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=" + api
     coordinatesConvert();
     searchResult.val("");
 });
@@ -140,6 +140,6 @@ search.on("submit", function (event) {
 // Favorite button click listener //
 elFavorites.on("click", ".favBtn", function () {
     favoriteSearch = this.text;
-    citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=" + api
+    citySearch = "https://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=" + api
     coordinatesConvert();
 });
