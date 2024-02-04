@@ -1,17 +1,26 @@
-// JS Variables// 
+//---------------- JS Variables ----------------// 
+// Nav Bar//
+var addFavorite = $("#addFavorite");
+var elFavorites = $("#elFavorites");
+var search = $("#search");
+var searchResult = $("#searchResult");
+var cityValue;
+
+//Current Weather Elements//
 var currentCity = $("#currentCity");
 var currentDate = $("#currentDate");
 var currentTemp = $("#currentTemp");
 var currentHumid = $("#currentHumid");
 var currentWind = $("#currentWind");
 var currentIcon = $("#currentIcon");
-var search = $("#search");
-var searchResult = $("#searchResult");
+
+// Fetch URLs//
 var requestURLCurrent;
 var requestURLFiveDay;
 
-// Function to convert city name to lat/lon coordinates.//
-var coordinatesConvert = function () {
+//---------------- Fetch Functions ----------------//
+//Function to convert city name to lat/lon coordinates//
+function coordinatesConvert() {
     fetch(citySearch, {
         cache: "no-cache",
     })
@@ -19,7 +28,8 @@ var coordinatesConvert = function () {
             return response.json()
         })
         .then(function (data) {
-            currentCity.text("City: " + data[0].name + ", " + data[0].state)
+            cityValue = data[0].name + ", " + data[0].state;
+            currentCity.text("City: " + cityValue);
             requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
             coordinatesSearchCurrent(requestURLCurrent);
             requestURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
@@ -27,8 +37,8 @@ var coordinatesConvert = function () {
         })
 };
 
-// Function with fetch request to search lat/lon coordinates and output API results.//
-var coordinatesSearchCurrent = function () {
+// Function with fetch request to search lat/lon coordinates and output API results//
+function coordinatesSearchCurrent() {
     fetch(requestURLCurrent, {
         cache: "no-cache",
     })
@@ -36,7 +46,6 @@ var coordinatesSearchCurrent = function () {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
             currentDate.text("Date: " + dayjs.unix(data.dt).format("MMMM D, YYYY"));
             currentTemp.text("Temp: " + Math.round(data.main.temp) + "°");
             currentHumid.text("Humidity: " + Math.round(data.main.humidity) + "%");
@@ -45,8 +54,8 @@ var coordinatesSearchCurrent = function () {
         })
 };
 
-// Function with fetch request to get 5 day API results.//
-var coordinatesSearchFiveDay = function () {
+// Function with fetch request to get 5 day API results//
+function coordinatesSearchFiveDay() {
     fetch(requestURLFiveDay, {
         cache: "no-cache",
     })
@@ -72,12 +81,28 @@ var coordinatesSearchFiveDay = function () {
         })
 };
 
-// Form submit search event listener//
+//---------------- Local Data Save/Load ----------------//
+// Save //
+//Event listener for adding data from this fetch request to local storage//
+var favCityValueArray = []
+addFavorite.on("click", function () {
+// Path to append new cities//
+    elFavorites.append($("<li>").attr("id", "fav-" + 9).append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
+//JSON local storage//
+    favCityValueArray.push(cityValue)
+    console.log(favCityValueArray)
+    localStorage.setItem("city", JSON.stringify(favCityValueArray));
+});
+
+//---------------- Form Submit ----------------//
+// Search form event listener//
 search.on("submit", function (event) {
     event.preventDefault();
     citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
     coordinatesConvert();
 });
+
+
 
 // test.on("click", function (){
 //     var favoriteSearch = "alamosa"; 
