@@ -70,7 +70,6 @@ function coordinatesSearchFiveDay() {
 
         .then(function (data) {
             // Calculations to output a value of noon on the page (more details in ReadMe)//
-            console.log(data);
             var time1 = dayjs(data.list[0].dt_txt);
             var time2 = ((time1.add(12, "hour")).startOf('day').add(12, "hour"));
             var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
