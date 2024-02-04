@@ -13,6 +13,7 @@ var currentTemp = $("#currentTemp");
 var currentHumid = $("#currentHumid");
 var currentWind = $("#currentWind");
 var currentIcon = $("#currentIcon");
+var pageMessage = $("#forcast");
 // Fetch URLs//
 var requestURLCurrent;
 var requestURLFiveDay;
@@ -30,6 +31,7 @@ function coordinatesConvert() {
             return response.json()
         })
         .then(function (data) {
+            pageMessage.text("Five Day Forcast at Noon");
             cityValue = data[0].name + ", " + data[0].state;
             currentCity.text("City: " + cityValue);
             requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=" + api
