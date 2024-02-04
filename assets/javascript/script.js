@@ -2,10 +2,10 @@
 // Nav Bar//
 var addFavorite = $("#addFavorite");
 var elFavorites = $("#elFavorites");
+var favCityValueArray = []
 var search = $("#search");
 var searchResult = $("#searchResult");
 var cityValue;
-
 //Current Weather Elements//
 var currentCity = $("#currentCity");
 var currentDate = $("#currentDate");
@@ -13,7 +13,6 @@ var currentTemp = $("#currentTemp");
 var currentHumid = $("#currentHumid");
 var currentWind = $("#currentWind");
 var currentIcon = $("#currentIcon");
-
 // Fetch URLs//
 var requestURLCurrent;
 var requestURLFiveDay;
@@ -62,6 +61,7 @@ function coordinatesSearchFiveDay() {
         .then(function (response) {
             return response.json();
         })
+
         .then(function (data) {
             // Calculations to output a value of noon on the page (more details in ReadMe)//
             var time1 = dayjs(data.list[0].dt_txt);
@@ -82,30 +82,50 @@ function coordinatesSearchFiveDay() {
 };
 
 //---------------- Local Data Save/Load ----------------//
-//Load //
-function load() {
-    var favCityValueArray = []
-    var favCityValueArray = JSON.parse(localStorage.getItem("city"));
-    for (var i = 0; i < favCityValueArray.length; i++) {
-        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + favCityValueArray[i] + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
-    }
-
-    // Save //
-    addFavorite.on("click", function () {
-        // Path to append new cities//
-        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
-        //JSON local storage//
-        favCityValueArray.push(cityValue)
-        localStorage.setItem("city", JSON.stringify(favCityValueArray));
-    });
+// Push favorites to "My favorite cities" menu //
+addFavorite.on("click", setFavorite)
+function setFavorite() {
+    favCityValueArray.push(cityValue);
+    // Path to append new cities//
+    elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
+    save();
+    load();
 };
-load();
+
+//Save data to local storage//
+function save() {
+    localStorage.setItem("city", JSON.stringify(favCityValueArray));
+};
+
+//Load from Local Storage//
+function load() {
+    elFavorites.empty();
+    for (var i = 0; i < favCityValueArray.length; i++) {
+        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + favCityValueArray[i] + "</a>").attr({ "class": "dropdown-item", "href": "#" })))
+    }
+};
+
+// Init function//
+loadedFavCityValueArray = JSON.parse(localStorage.getItem("city"));
+if (loadedFavCityValueArray !== null) {
+    favCityValueArray = loadedFavCityValueArray
+    load()
+};
+
+//Local Storage Clear//
+$("#clear").on("click", function () {
+    localStorage.clear();
+    elFavorites.empty();
+    favCityValueArray.length=0;
+})
+
 //---------------- Form Submit ----------------//
 // Search form event listener//
 search.on("submit", function (event) {
     event.preventDefault();
     citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
     coordinatesConvert();
+    searchResult.val("");
 });
 
 
