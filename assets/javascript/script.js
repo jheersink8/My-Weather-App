@@ -70,9 +70,13 @@ function coordinatesSearchFiveDay() {
 
         .then(function (data) {
             // Calculations to output a value of noon on the page (more details in ReadMe)//
+            console.log(data);
             var time1 = dayjs(data.list[0].dt_txt);
             var time2 = ((time1.add(12, "hour")).startOf('day').add(12, "hour"));
             var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
+            if (timeCode === 8) {
+                timeCode = 0
+            }
             // For loop to grab data for each day at noon.//
             var dayStart = 0;
             for (var i = timeCode; i < data.list.length; i += 8) {
