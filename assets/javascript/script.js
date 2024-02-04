@@ -13,9 +13,13 @@ var currentTemp = $("#currentTemp");
 var currentHumid = $("#currentHumid");
 var currentWind = $("#currentWind");
 var currentIcon = $("#currentIcon");
+var pageMessage = $("#forcast");
 // Fetch URLs//
 var requestURLCurrent;
 var requestURLFiveDay;
+//DRY Variables//
+var api = "0033aad0c09d93beb4a60c3cfe05890e";
+var icon = "https://openweathermap.org/img/wn/";
 
 //---------------- Fetch Functions ----------------//
 //Function to convert city name to lat/lon coordinates//
@@ -27,11 +31,13 @@ function coordinatesConvert() {
             return response.json()
         })
         .then(function (data) {
+            pageMessage.text("");
+            $(".hide").removeClass("d-none");
             cityValue = data[0].name + ", " + data[0].state;
             currentCity.text("City: " + cityValue);
-            requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
+            requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=" + api
             coordinatesSearchCurrent(requestURLCurrent);
-            requestURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=0033aad0c09d93beb4a60c3cfe05890e"
+            requestURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=" + api
             coordinatesSearchFiveDay(requestURLFiveDay);
         })
 };
@@ -49,7 +55,7 @@ function coordinatesSearchCurrent() {
             currentTemp.text("Temp: " + Math.round(data.main.temp) + "°");
             currentHumid.text("Humidity: " + Math.round(data.main.humidity) + "%");
             currentWind.text("Wind Speed: " + Math.round(data.wind.speed) + " mph");
-            currentIcon.attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+            currentIcon.attr("src", icon + data.weather[0].icon + "@4x.png");
         })
 };
 
@@ -64,16 +70,20 @@ function coordinatesSearchFiveDay() {
 
         .then(function (data) {
             // Calculations to output a value of noon on the page (more details in ReadMe)//
+            console.log(data);
             var time1 = dayjs(data.list[0].dt_txt);
             var time2 = ((time1.add(12, "hour")).startOf('day').add(12, "hour"));
             var timeCode = Math.floor(time2.diff(time1, "hours") / 3);
+            if (timeCode === 8) {
+                timeCode = 0
+            }
             // For loop to grab data for each day at noon.//
             var dayStart = 0;
             for (var i = timeCode; i < data.list.length; i += 8) {
                 var day = "#day-" + dayStart;
                 $(day).children().eq(0).text(dayjs(data.list[i].dt_txt).format("ddd MMM, D"));
                 $(day).children().eq(1).text(Math.round(data.list[i].main.temp) + "°");
-                $(day).children().eq(2).attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png")
+                $(day).children().eq(2).attr("src", icon + data.list[i].weather[0].icon + "@2x.png")
                 $(day).children().eq(3).children().eq(0).text(Math.round(data.list[i].main.humidity) + "%");
                 $(day).children().eq(3).children().eq(1).text(Math.round(data.list[i].wind.speed) + " mph");
                 dayStart++
@@ -123,16 +133,14 @@ $("#clear").on("click", function () {
 // Search form event listener //
 search.on("submit", function (event) {
     event.preventDefault();
-    citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
+    citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=" + api
     coordinatesConvert();
     searchResult.val("");
 });
 
 // Favorite button click listener //
-$(".favBtn").each(function () {
-    $(this).on("click", function () {
-        favoriteSearch = this.text;
-        citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
-        coordinatesConvert();
-    })
+elFavorites.on("click", ".favBtn", function () {
+    favoriteSearch = this.text;
+    citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=" + api
+    coordinatesConvert();
 });

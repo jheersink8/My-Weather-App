@@ -13,169 +13,162 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<body class="bg-secondary">
+
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand">My Daily Weather</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <a class="navbar-brand text-light">My Daily Weather</a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Start of navbar menu dropdowns -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-2">
-                    
-                    <!-- DELETE -->
-                    <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-
                     <li class="nav-item dropdown px-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  text-light" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             My favorite cities
                         </a>
-                        <ul id="elFavorites" class="dropdown-menu">
-
-                        </ul>
+                        <!-- Favorite city section -->
+                        <ul id="elFavorites" class="dropdown-menu"> </ul>
                     </li>
-
+                    <!-- Settings menu button -->
                     <li class="nav-item dropdown px-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  text-light" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Settings
                         </a>
                         <ul class="dropdown-menu">
                             <li><a id="addFavorite" class="dropdown-item" href="#">Add City to Favorites</a></li>
                             <li><a id="clear" class="dropdown-item" href="#">Clear Favorites</a></li>
-                            <li><a class="dropdown-item" href="#">Imperial/Metric</a></li>
-                            <li><a class="dropdown-item" href="#">About</a></li>
                         </ul>
                     </li>
 
                 </ul>
+                <!-- Search button and form -->
                 <form id="search" class="d-flex" role="search">
                     <input id="searchResult" class="form-control me-2" type="search" placeholder="Search"
                         aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
 
-
-    <div class="container text-center border border-solid border-1 mt-3">
-        <div class="row">
-            <div class="col-12">
+    <!-- Current weather section of HTML -->
+    <div
+        class="hide container text-center my-5 border border-solid border-1 bg-primary rounded text-light p-0 d-none">
+        <div class="row m-0">
+            <div class="col-lg-4 p-4 bg-dark m-0 border border-solid border-1 rounded">
+                <h1>Current Weather</h1>
                 <h2 id="currentCity"></h2>
                 <h2 id="currentDate"></h2>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-
-        <div class="row border border-solid border-1">
-
-            <div class="col-lg-8 border border-solid border-1">
-                <p id="currentTemp" class="border border-solid border-1"></p>
-                <p id="currentHumid" class="border border-solid border-1"></p>
-                <p id="currentWind" class="border border-solid border-1"></p>
+            <div class="col-lg-4 p-2">
+                <p id="currentTemp" class="h2 p-2"></p>
+                <p id="currentHumid" class="h2 p-2"></p>
+                <p id="currentWind" class="h2 p-2"></p>
             </div>
 
-
-            <div class="col-lg-4 border border-solid border-1">
+            <div class="col-lg-4">
                 <img id="currentIcon">
             </div>
-
         </div>
-
+    </div>
+    </div>
     </div>
 
-
-
-    <h3 class="text-center">Five Day Forcast at Noon</h3>
-    <div class="container-fluid">
-        <div class="row text-center border border-solid border-3">
-            <div id="day-0" class="col-lg-2 text-center border border-solid border-1 offset-1">
-                <p id="date"></p>
-                <p id="temp1"></p>
+    <!-- Five day weather section of HTML -->
+    <h2 id="forcast" class="text-center my-4">Please search for a city using the nav bar search tool, or select a city
+        from
+        your favorites list!</h2>
+    <div class="hide container-fluid my-5 d-none">
+        <div class="row text-center mx-auto">
+            <!-- Title Card -->
+            <div
+                class="col-lg-1 text-center border border-solid border-1 bg-dark text-light d-flex align-items-center justify-content-center h4">
+                Five Day Forcast at Noon
+            </div>
+            <!-- First day -->
+            <div id="day-0"
+                class="col-lg-2 text-center text-light h4 border border-solid border-1 bg-primary rounded mx-2 p-4">
+                <p id="date1" class="h3"></p>
+                <p id="temp1" class="p-4"></p>
                 <img id="icon1">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="hum1"></p>
                     </div>
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="wind1"></p>
                     </div>
                 </div>
             </div>
-
-            <div id="day-1" class="col-lg-2 text-center border border-solid border-1">
-                <p id="date2"></p>
-                <p id="temp2"></p>
+            <!-- Second day -->
+            <div id="day-1"
+                class="col-lg-2 text-center text-light h4 border border-solid border-1 bg-primary rounded mx-2 p-4">
+                <p id="date2" class="h3"></p>
+                <p id="temp2" class="p-4"></p>
                 <img id="icon2">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="hum2"></p>
                     </div>
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="wind2"></p>
                     </div>
                 </div>
             </div>
-
-
-            <div id="day-2" class="col-lg-2 text-center border border-solid border-1">
-                <p id="date3"></p>
-                <p id="temp3"></p>
+            <!-- Third day -->
+            <div id="day-2"
+                class="col-lg-2 text-center text-light h4 border border-solid border-1 bg-primary rounded mx-2 p-4">
+                <p id="date3" class="h3"></p>
+                <p id="temp3" class="p-4"></p>
                 <img id="icon3">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="hum3"></p>
                     </div>
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="wind3"></p>
                     </div>
                 </div>
             </div>
-
-
-            <div id="day-3" class="col-lg-2 text-center border border-solid border-1">
-                <p id="date4"></p>
-                <p id="temp4"></p>
+            <!-- Fourth day -->
+            <div id="day-3"
+                class="col-lg-2 text-center text-light h4 border border-solid border-1 bg-primary rounded mx-2 p-4">
+                <p id="date4" class="h3"></p>
+                <p id="temp4" class="p-4"></p>
                 <img id="icon4">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="hum4"></p>
                     </div>
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="wind4"></p>
                     </div>
                 </div>
             </div>
-
-
-            <div id="day-4" class="col-lg-2 text-center border border-solid border-1">
-                <p id="date5"></p>
-                <p id="temp5"></p>
+            <!-- Fifth day -->
+            <div id="day-4"
+                class="col-lg-2 text-center text-light h4 border border-solid border-1 bg-primary rounded mx-2 p-4">
+                <p id="date5" class="h3"></p>
+                <p id="temp5" class="p-4"></p>
                 <img id="icon5">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="hum5"></p>
                     </div>
-                    <div class="col-lg-6 text-center border border-solid border-1">
+                    <div class="col-lg-6 text-center">
                         <p id="wind5"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
     <!-- DayJS web API 1.12 -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11/dayjs.min.js"
         integrity="sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=" crossorigin="anonymous"></script>
@@ -186,9 +179,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 3
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-
     <script src="assets/javascript/script.js"></script>
 
 </body>
-
 </html5
