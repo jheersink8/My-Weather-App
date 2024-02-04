@@ -87,7 +87,7 @@ addFavorite.on("click", setFavorite)
 function setFavorite() {
     favCityValueArray.push(cityValue);
     // Path to append new cities//
-    elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
+    elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item favBtn", "href": "#" })));
     save();
     load();
 };
@@ -101,7 +101,7 @@ function save() {
 function load() {
     elFavorites.empty();
     for (var i = 0; i < favCityValueArray.length; i++) {
-        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + favCityValueArray[i] + "</a>").attr({ "class": "dropdown-item", "href": "#" })))
+        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + favCityValueArray[i] + "</a>").attr({ "class": "dropdown-item favBtn", "href": "#" })))
     }
 };
 
@@ -116,11 +116,11 @@ if (loadedFavCityValueArray !== null) {
 $("#clear").on("click", function () {
     localStorage.clear();
     elFavorites.empty();
-    favCityValueArray.length=0;
+    favCityValueArray.length = 0;
 })
 
-//---------------- Form Submit ----------------//
-// Search form event listener//
+//---------------- Event Listeners ----------------//
+// Search form event listener //
 search.on("submit", function (event) {
     event.preventDefault();
     citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchResult.val() + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
@@ -128,11 +128,11 @@ search.on("submit", function (event) {
     searchResult.val("");
 });
 
-
-
-// test.on("click", function (){
-//     var favoriteSearch = "alamosa"; 
-//     citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
-//     console.log(citySearch)
-//     coordinatesConvert();
-// }) ; 
+// Favorite button click listener //
+$(".favBtn").each(function () {
+    $(this).on("click", function () {
+        favoriteSearch = this.text;
+        citySearch = "http://api.openweathermap.org/geo/1.0/direct?q=" + favoriteSearch + "&limit=1&appid=0033aad0c09d93beb4a60c3cfe05890e"
+        coordinatesConvert();
+    })
+});
