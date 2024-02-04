@@ -24,7 +24,7 @@ See screenshot below for a demonstration of how the app displays its content.
 Future suggestions for the client include:  
 -	Adding the option to change format from imperial to metric through the settings menu 
 
-![A screenshot of the weather app calling API data for Denver, Colorado.](./Assets/images/screenshot.png)
+![A screenshot of the weather app calling API data for Denver, Colorado.](./assets/images/screenshot.png)
 
 ## Credits
 The original scenario was presented by Denver University in the Bootcamp course ID DU-VIRT-FSF-PT-12-2023-U-LOLC-MWTH under Module 6 Challenge. All code was generated and submitted by Jordan R. Heersink.
