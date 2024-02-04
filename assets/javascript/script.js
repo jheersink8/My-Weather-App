@@ -31,7 +31,7 @@ function coordinatesConvert() {
             return response.json()
         })
         .then(function (data) {
-            pageMessage.text("Five Day Forcast at Noon");
+            pageMessage.text("");
             cityValue = data[0].name + ", " + data[0].state;
             currentCity.text("City: " + cityValue);
             requestURLCurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + (data[0].lat) + "&lon=" + (data[0].lon) + "&units=imperial&appid=" + api
@@ -54,7 +54,7 @@ function coordinatesSearchCurrent() {
             currentTemp.text("Temp: " + Math.round(data.main.temp) + "°");
             currentHumid.text("Humidity: " + Math.round(data.main.humidity) + "%");
             currentWind.text("Wind Speed: " + Math.round(data.wind.speed) + " mph");
-            currentIcon.attr("src", icon + data.weather[0].icon + "@2x.png");
+            currentIcon.attr("src", icon + data.weather[0].icon + "@4x.png");
         })
 };
 
