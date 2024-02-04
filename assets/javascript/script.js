@@ -82,18 +82,24 @@ function coordinatesSearchFiveDay() {
 };
 
 //---------------- Local Data Save/Load ----------------//
-// Save //
-//Event listener for adding data from this fetch request to local storage//
-var favCityValueArray = []
-addFavorite.on("click", function () {
-// Path to append new cities//
-    elFavorites.append($("<li>").attr("id", "fav-" + 9).append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
-//JSON local storage//
-    favCityValueArray.push(cityValue)
-    console.log(favCityValueArray)
-    localStorage.setItem("city", JSON.stringify(favCityValueArray));
-});
+//Load //
+function load() {
+    var favCityValueArray = []
+    var favCityValueArray = JSON.parse(localStorage.getItem("city"));
+    for (var i = 0; i < favCityValueArray.length; i++) {
+        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + favCityValueArray[i] + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
+    }
 
+    // Save //
+    addFavorite.on("click", function () {
+        // Path to append new cities//
+        elFavorites.append($("<li>").attr("id", "favCity").append($("<a>" + cityValue + "</a>").attr({ "class": "dropdown-item", "href": "#" })));
+        //JSON local storage//
+        favCityValueArray.push(cityValue)
+        localStorage.setItem("city", JSON.stringify(favCityValueArray));
+    });
+};
+load();
 //---------------- Form Submit ----------------//
 // Search form event listener//
 search.on("submit", function (event) {
